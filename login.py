@@ -3,6 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from jwt import create_accsess_token,authenticate
 from sqlalchemy.orm import Session
 from db import get_db
+from exception import UserNotFoundException
 
 authentication_router=APIRouter(tags=['Authentication'])
 
@@ -17,7 +18,7 @@ def login_for_accsess_token(form_data:OAuth2PasswordRequestForm=Depends(),db: Se
             headers={"WWW-Authenticate": "Bearer"},
         )
     if user.is_deleted ==True:
-        raise HTTPException
+        raise UserNotFoundException()
 
     if user.is_deleted == False:
         accsess_token=create_accsess_token(

@@ -1,4 +1,4 @@
-from fastapi import HTTPException,APIRouter,Depends
+from fastapi import APIRouter,Depends
 from jwt import get_current_user
 from sqlalchemy.orm import Session
 from db import get_db
@@ -17,7 +17,7 @@ def create_new_user(username:str,item: CreateNewUser, db: Session = Depends(get_
     return message
 
 @user_router.delete('/user')
-def delete_user(username:str ,db: Session = Depends(get_db)):
-    message = delete_user_from_db(username=username, db=db)
+def delete_user(username:str ,db: Session = Depends(get_db),current_user=Depends(get_current_user)):
+    message = delete_user_from_db(username=username, db=db,current_user=current_user)
     return message
     

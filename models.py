@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String , Boolean , Float
+from sqlalchemy import Column, Integer, String , Boolean , Float ,Date
 from db import Base, engine
 
 
@@ -17,15 +17,14 @@ class Student(Base):
     name = Column(String)
     surname = Column(String)
     fin = Column(String,unique=True)
-    birth_date = Column(String)
+    birth_date = Column(Date)
     is_deleted = Column(Boolean, default=False)
 
 
 class Course(Base):
     __tablename__ = "courses"
-    id = Column(Integer, primary_key=True)
+    teacher_id = Column(Integer, primary_key=True)
     name = Column(String)
-    surname = Column(String)
     description = Column(String)
     is_deleted = Column(Boolean, default=False)
 
