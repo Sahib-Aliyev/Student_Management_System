@@ -56,3 +56,27 @@ def delete_student_from_db(*,id:int ,db:Session,current_user: User= Depends(get_
     student_in_db.is_deleted=True
     db.commit()
     return {"Message":f"Student {student_in_db.name} with {student_in_db.id} id has been deleted successfully "}
+
+
+def get_all_student_data_from_db(*,id:int,db:Session,current_user: User= Depends(get_current_user)):
+    current_user_in_db=db.query(User).filter(User.username==current_user['sub']).first()
+    if not current_user_in_db.role=="admin":
+        raise HTTPException(status_code=401, detail="Only admins delete student")
+    student_in_db=db.query(Student).filter(Student.id==id,Student.is_deleted==False).first()
+    if not student_in_db:
+        raise StudentNotFoundException()
+    courses=db.query(Registration).filter(Registration.student_id==id).all()
+    lst_course=[{
+        "Lecturer_name":course.lecturer_name,
+        "Course_name":course.course_name,
+        "Final":course.final_point
+    } for course in courses]
+    if not courses:
+        lst_course="Student did not enter course"
+    return {
+        "Name":student_in_db.name,
+        "Surname":student_in_db.surname,
+        "Fin":student_in_db.fin,
+        "birth_date":student_in_db.birth_date,
+        "Course_info":lst_course
+    }

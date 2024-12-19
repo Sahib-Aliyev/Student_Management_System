@@ -21,3 +21,8 @@ def create_new_student(*,item:CreateNewStudent,current_user=Depends(get_current_
 def delete_student(id,current_user=Depends(get_current_user),db: Session = Depends(get_db)):
     message=delete_student_from_db(id=id,current_user=current_user,db=db)
     return message
+
+@student_router.get('/student/{id}')
+def get_all_student_data(id:int,current_user=Depends(get_current_user),db: Session = Depends(get_db)):
+    message=get_all_student_data_from_db( id=id ,current_user=current_user,db=db)
+    return message
