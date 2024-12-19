@@ -28,7 +28,7 @@ def create_new_user_in_db(*,username, data: CreateNewUser, db: Session):
         user_in_db.role=data.role
         user_in_db.is_deleted=False
         db.commit()
-        return {"msg": "user has been created"}
+        return {"Message": "user has been created"}
 
 def delete_user_from_db(*,username, db: Session ,current_user: User= Depends(get_current_user)):
     current_user_in_db =db.query(User).filter(User.username==current_user['sub']).first()

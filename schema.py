@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
+from typing import Optional
 
 class CreateNewUser(BaseModel):
     password: str
@@ -13,3 +14,17 @@ class CreateNewStudent(BaseModel):
     surname : str
     fin : str
     birth_date : date
+
+class CreateNewCourse(BaseModel):
+    teacher_id : int
+    subject_name : str
+    description : str
+
+class RegistrationData(BaseModel):
+    student_id : int
+    lecturer_name :str
+    course_name : str
+
+
+
+

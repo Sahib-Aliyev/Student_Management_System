@@ -11,3 +11,14 @@ course_router=APIRouter(tags=['Course'])
 def get_all_subjects(db: Session = Depends(get_db),current_user=Depends(get_current_user)):
     message=get_all_subjects_from_db(current_user=current_user,db=db)
     return message
+
+@course_router.post('/course')
+def create_new_course(*,item : CreateNewCourse , db: Session = Depends(get_db), current_user=Depends(get_current_user)):
+    message=create_new_course_in_db(data=item,db=db,current_user=current_user)
+    return message
+
+@course_router.post('/refister_course')
+def regisrtation(*,item:RegistrationData, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
+    message= registration_in_db(data=item,db=db,current_user=current_user)
+    return message
+                      

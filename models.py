@@ -23,19 +23,22 @@ class Student(Base):
 
 class Course(Base):
     __tablename__ = "courses"
-    teacher_id = Column(Integer, primary_key=True)
-    name = Column(String)
+    id= Column(Integer, primary_key=True)
+    teacher_id = Column(Integer)
+    lecturer_name = Column(String)
+    subject_name = Column(String)
     description = Column(String)
     is_deleted = Column(Boolean, default=False)
 
 
 class Registration(Base):
     __tablename__ = "student_course_registration"
-    id = Column(Integer, primary_key=True)
+    id= Column(Integer, primary_key=True)
+    student_id = Column(Integer)
+    lecturer_name=Column(String)
     course_name = Column(String)
     student_name = Column(String)
     final_point = Column(Float)
-    description = Column(String)
     is_deleted = Column(Boolean, default=False)
 
 
