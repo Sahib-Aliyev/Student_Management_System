@@ -34,7 +34,7 @@ def create_new_course_in_db(
     current_user_in_db = (
         db.query(User).filter(User.username == current_user["sub"]).first()
     )
-    if not current_user_in_db.role == "admin":
+    if not current_user_in_db.role != "admin":
         raise HTTPException(status_code=401, detail="Only admins can create new course")
     lecturer_in_db = db.query(User).filter(User.role == "lecturer").all()
     lecturer_lst = [lecture.id for lecture in lecturer_in_db]
