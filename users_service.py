@@ -21,7 +21,7 @@ def create_new_user_in_db(*, username, data: CreateNewUser, db: Session):
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
-        return {"Message": "user has been created"}
+        return {"Message": "User has been created"}
 
     elif user_in_db.is_deleted == True:
         user_in_db.username = username
@@ -29,7 +29,7 @@ def create_new_user_in_db(*, username, data: CreateNewUser, db: Session):
         user_in_db.role = data.role
         user_in_db.is_deleted = False
         db.commit()
-        return {"Message": "user has been created"}
+        return {"Message": "User has been created"}
 
 
 def delete_user_from_db(

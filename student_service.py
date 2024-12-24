@@ -16,11 +16,13 @@ def get_all_student_from_db(
     if not current_user_in_db.role == "admin":
         raise HTTPException(status_code=401, detail="Only admins can get data")
     students = db.query(Student).filter(Student.is_deleted == False).all()
-    return [
+    students_lst= [
         {"Id": student.id, "Name": student.name, "Surname": student.surname}
         for student in students
     ]
-
+    if len(students_lst)==0:
+        return {"Message":"There no any student in db"}
+    return students_lst
 
 def create_new_student_in_db(
     *,
