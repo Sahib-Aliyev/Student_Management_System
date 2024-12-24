@@ -21,7 +21,7 @@ def get_all_student_from_db(
         for student in students
     ]
     if len(students_lst)==0:
-        return {"Message":"There no any student in db"}
+        return {"Message":"There are no students in the db."}
     return students_lst
 
 def create_new_student_in_db(
@@ -42,7 +42,6 @@ def create_new_student_in_db(
     students = db.query(Student).filter(Student.is_deleted == False).all()
     for student in students:
         fin_list.append(student.fin)
-    print(fin_list)
     if not student_in_db:
         new_student = Student(
             name=data.name,
